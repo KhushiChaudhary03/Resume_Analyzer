@@ -1,4 +1,4 @@
-function ScoreCard({ title, value, color }) {
+function ScoreCard({ title, value = 0, color = "indigo" }) {
   const colors = {
     indigo: {
       bg: "bg-indigo-50",
@@ -12,9 +12,15 @@ function ScoreCard({ title, value, color }) {
       track: "bg-emerald-200",
       text: "text-emerald-700",
     },
+    purple: {
+      bg: "bg-purple-50",
+      bar: "bg-purple-600",
+      track: "bg-purple-200",
+      text: "text-purple-700",
+    },
   };
 
-  const c = colors[color];
+  const c = colors[color] || colors.indigo;
 
   return (
     <div className={`${c.bg} rounded-2xl p-6 shadow-sm`}>
@@ -25,7 +31,7 @@ function ScoreCard({ title, value, color }) {
       <div className={`w-full ${c.track} h-2 rounded-full mb-3`}>
         <div
           className={`${c.bar} h-2 rounded-full`}
-          style={{ width: `${value}%` }}
+          style={{ width: `${Math.min(value, 100)}%` }}
         />
       </div>
 

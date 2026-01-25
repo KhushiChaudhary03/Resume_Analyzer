@@ -1,7 +1,6 @@
 function UploadForm({ setResume, jd, setJd, onAnalyze, loading, error }) {
   return (
     <div className="space-y-8">
-      {/* Resume */}
       <div>
         <label className="block text-sm font-medium text-slate-700 mb-2">
           Upload Resume (PDF)
@@ -15,7 +14,6 @@ function UploadForm({ setResume, jd, setJd, onAnalyze, loading, error }) {
         />
       </div>
 
-      {/* JD */}
       <div>
         <label className="block text-sm font-medium text-slate-700 mb-2">
           Job Description
@@ -30,12 +28,11 @@ function UploadForm({ setResume, jd, setJd, onAnalyze, loading, error }) {
         />
       </div>
 
-      {/* Button */}
       <button
         onClick={onAnalyze}
         disabled={loading}
         className="w-full rounded-xl bg-indigo-600 py-4 text-white font-semibold
-                   hover:bg-indigo-700 transition-all duration-200
+                   hover:bg-indigo-700 transition
                    disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {loading ? "Analyzing Resume..." : "Analyze Resume"}

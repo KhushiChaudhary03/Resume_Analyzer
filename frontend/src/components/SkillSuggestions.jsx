@@ -1,18 +1,18 @@
-function SkillSuggestions({ missingSkills }) {
-  if (!missingSkills || missingSkills.length === 0) {
+function SkillSuggestions({ missingSkills = [] }) {
+  if (missingSkills.length === 0) {
     return (
       <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 mt-8">
         <h3 className="text-lg font-semibold text-emerald-700">
           🎉 No Skill Gaps
         </h3>
         <p className="text-sm text-emerald-600 mt-2">
-          Your resume already meets all the required skills for this role.
+          Your resume already meets all required skills for this role.
         </p>
       </div>
     );
   }
 
-  // Simple priority rule
+  // Priority logic
   const highPriority = missingSkills.slice(0, 3);
   const lowPriority = missingSkills.slice(3);
 
@@ -23,10 +23,10 @@ function SkillSuggestions({ missingSkills }) {
       </h3>
 
       <p className="text-sm text-slate-600 mb-4">
-        Focus on these skills to improve your match for this role:
+        Improve your ATS score by adding these skills to your resume:
       </p>
 
-      {/* High Priority */}
+      {/* High Priority Skills */}
       <div className="mb-4">
         <h4 className="text-sm font-medium text-rose-600 mb-2">
           High Priority
@@ -43,7 +43,7 @@ function SkillSuggestions({ missingSkills }) {
         </div>
       </div>
 
-      {/* Recommended */}
+      {/* Recommended Skills */}
       {lowPriority.length > 0 && (
         <div>
           <h4 className="text-sm font-medium text-slate-600 mb-2">

@@ -42,9 +42,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 py-16">
+    <div className="min-h-screen bg-slate-100 py-16">
       <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl p-10">
+        <div className="bg-white rounded-3xl shadow-xl p-10">
           <Header />
 
           <UploadForm
