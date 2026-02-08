@@ -1,42 +1,45 @@
-function ScoreCard({ title, value = 0, color = "indigo" }) {
+function ScoreCard({ title, value = 0, color = "amber" }) {
   const colors = {
-    indigo: {
-      bg: "bg-indigo-50",
-      bar: "bg-indigo-600",
-      track: "bg-indigo-200",
-      text: "text-indigo-700",
+    amber: {
+      bg: "bg-amber-50",
+      bar: "bg-amber-500",
+      track: "bg-amber-200",
+      text: "text-amber-700",
     },
-    emerald: {
-      bg: "bg-emerald-50",
-      bar: "bg-emerald-600",
-      track: "bg-emerald-200",
-      text: "text-emerald-700",
+    teal: {
+      bg: "bg-teal-50",
+      bar: "bg-teal-600",
+      track: "bg-teal-200",
+      text: "text-teal-700",
     },
-    purple: {
-      bg: "bg-purple-50",
-      bar: "bg-purple-600",
-      track: "bg-purple-200",
-      text: "text-purple-700",
+    rose: {
+      bg: "bg-rose-50",
+      bar: "bg-rose-600",
+      track: "bg-rose-200",
+      text: "text-rose-700",
     },
   };
 
   const c = colors[color] || colors.indigo;
 
   return (
-    <div className={`${c.bg} rounded-2xl p-6 shadow-sm`}>
-      <p className="text-sm font-medium text-slate-600 mb-3">
-        {title}
-      </p>
+    <div className={`${c.bg} rounded-3xl p-6 shadow-sm border border-white`}>
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-medium text-slate-600">{title}</p>
+        <span className={`text-xs font-semibold ${c.text}`}>
+          {value}%
+        </span>
+      </div>
 
-      <div className={`w-full ${c.track} h-2 rounded-full mb-3`}>
+      <div className={`mt-4 w-full ${c.track} h-2 rounded-full`}>
         <div
           className={`${c.bar} h-2 rounded-full`}
           style={{ width: `${Math.min(value, 100)}%` }}
         />
       </div>
 
-      <p className={`text-2xl font-bold ${c.text}`}>
-        {value}%
+      <p className="mt-4 text-2xl font-semibold text-slate-900">
+        {Math.min(value, 100)} / 100
       </p>
     </div>
   );

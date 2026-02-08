@@ -42,21 +42,82 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 py-16">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white rounded-3xl shadow-xl p-10">
-          <Header />
+    <div className="app">
+      <div className="app-shell">
+        <div className="app-blob app-blob-amber" />
+        <div className="app-blob app-blob-teal" />
+        <div className="app-blob app-blob-rose" />
 
-          <UploadForm
-            setResume={setResume}
-            jd={jd}
-            setJd={setJd}
-            onAnalyze={handleAnalyze}
-            loading={loading}
-            error={error}
-          />
+        <div className="app-container">
+          <div className="app-card">
+            <div className="app-card-body app-reveal">
+              <Header />
 
-          {result && <Results result={result} />}
+              <div className="app-grid">
+                <div className="app-form">
+                  <UploadForm
+                    setResume={setResume}
+                    jd={jd}
+                    setJd={setJd}
+                    onAnalyze={handleAnalyze}
+                    loading={loading}
+                    error={error}
+                  />
+                </div>
+
+                <div className="app-sidebar">
+                  <div className="app-panel">
+                    <p className="app-panel-eyebrow">What you get</p>
+                    <h3 className="app-panel-title">
+                      A clear ATS readiness snapshot
+                    </h3>
+                    <p className="app-panel-copy">
+                      Upload your resume and paste a job description. We score
+                      the match, highlight strengths, and call out missing skills
+                      so you can iterate fast.
+                    </p>
+
+                    <div className="app-panel-list">
+                      <div className="app-panel-item">
+                        <p className="app-panel-item-title">
+                          Signal-rich metrics
+                        </p>
+                        <p className="app-panel-item-copy">
+                          Text similarity, ATS score, and skill match.
+                        </p>
+                      </div>
+                      <div className="app-panel-item">
+                        <p className="app-panel-item-title">
+                          Role-based scoring
+                        </p>
+                        <p className="app-panel-item-copy">
+                          Backend, frontend, data science, DevOps, and general packs.
+                        </p>
+                      </div>
+                      <div className="app-panel-item">
+                        <p className="app-panel-item-title">
+                          Skill gap plan
+                        </p>
+                        <p className="app-panel-item-copy">
+                          Priority skills surfaced in minutes.
+                        </p>
+                      </div>
+                      <div className="app-panel-item">
+                        <p className="app-panel-item-title">
+                          Clean reporting
+                        </p>
+                        <p className="app-panel-item-copy">
+                          Built for quick resume updates.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {result && <Results result={result} />}
+            </div>
+          </div>
         </div>
       </div>
     </div>
