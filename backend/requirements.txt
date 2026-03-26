@@ -1,4 +1,8 @@
 flask
 flask-cors
+flask-sqlalchemy
+flask-migrate
 scikit-learn
 pdfplumber
+psycopg2-binary
+python-dotenv
