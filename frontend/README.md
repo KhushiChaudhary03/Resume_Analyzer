@@ -1,16 +1,47 @@
-# React + Vite
+# ResumeIQ — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite + Tailwind CSS v4
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## React Compiler
+Opens at **http://localhost:5173**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- **Auth** — Register / Login / Logout with persistent token
+- **Drag & Drop** — Drop a PDF directly onto the upload zone
+- **Analysis Dashboard** — Side-by-side input + results layout
+- **Score Rings** — Animated SVG rings for ATS, Skill Match, Text Similarity
+- **Tabbed Results** — Overview | Skills | Gaps | Tips
+- **History** — View and delete past analyses
+- **Responsive** — Works on mobile, tablet, and desktop
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+
+```
+frontend/src/
+├── App.jsx                    # Root with auth gating
+├── index.css                  # Global styles + Tailwind
+├── main.jsx                   # Entry point
+├── context/
+│   └── AuthContext.jsx        # Global auth state + authFetch()
+├── pages/
+│   ├── AuthPage.jsx           # Login / Register
+│   └── Dashboard.jsx          # Main app page
+└── components/
+    ├── Navbar.jsx             # Sticky nav with user menu
+    ├── UploadSection.jsx      # File + JD input
+    ├── ResultsPanel.jsx       # Tabbed analysis results
+    └── HistoryPanel.jsx       # Past analyses list
+```
+
+## Environment
+
+The API base URL is `http://127.0.0.1:5000/api` — set in `AuthContext.jsx`.
+For production, change `const API = "..."` to your deployed backend URL.

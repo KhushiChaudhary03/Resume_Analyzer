@@ -1,127 +1,55 @@
-import { useState } from "react";
-import Header from "./components/Header";
-import UploadForm from "./components/UploadForm";
-import Results from "./components/Results";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import AuthPage from "./pages/AuthPage";
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 
-function App() {
-  const [resume, setResume] = useState(null);
-  const [jd, setJd] = useState("");
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+function AppInner() {
+  const { user, loading } = useAuth();
+  const path = window.location.pathname;
 
-  const handleAnalyze = async () => {
-    setError("");
-    setResult(null);
-
-    if (!resume || !jd.trim()) {
-      setError("Please upload a resume and paste a job description.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("resume", resume);
-    formData.append("jd", jd);
-
-    try {
-      setLoading(true);
-      const res = await fetch("http://127.0.0.1:5000/analyze", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error();
-
-      const data = await res.json();
-      setResult(data);
-    } catch {
-      setError("Failed to analyze resume. Backend not running?");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="app">
-      <div className="app-shell">
-        <div className="app-blob app-blob-amber" />
-        <div className="app-blob app-blob-teal" />
-        <div className="app-blob app-blob-rose" />
-
-        <div className="app-container">
-          <div className="app-card">
-            <div className="app-card-body app-reveal">
-              <Header />
-
-              <div className="app-grid">
-                <div className="app-form">
-                  <UploadForm
-                    setResume={setResume}
-                    jd={jd}
-                    setJd={setJd}
-                    onAnalyze={handleAnalyze}
-                    loading={loading}
-                    error={error}
-                  />
-                </div>
-
-                <div className="app-sidebar">
-                  <div className="app-panel">
-                    <p className="app-panel-eyebrow">What you get</p>
-                    <h3 className="app-panel-title">
-                      A clear ATS readiness snapshot
-                    </h3>
-                    <p className="app-panel-copy">
-                      Upload your resume and paste a job description. We score
-                      the match, highlight strengths, and call out missing skills
-                      so you can iterate fast.
-                    </p>
-
-                    <div className="app-panel-list">
-                      <div className="app-panel-item">
-                        <p className="app-panel-item-title">
-                          Signal-rich metrics
-                        </p>
-                        <p className="app-panel-item-copy">
-                          Text similarity, ATS score, and skill match.
-                        </p>
-                      </div>
-                      <div className="app-panel-item">
-                        <p className="app-panel-item-title">
-                          Role-based scoring
-                        </p>
-                        <p className="app-panel-item-copy">
-                          Backend, frontend, data science, DevOps, and general packs.
-                        </p>
-                      </div>
-                      <div className="app-panel-item">
-                        <p className="app-panel-item-title">
-                          Skill gap plan
-                        </p>
-                        <p className="app-panel-item-copy">
-                          Priority skills surfaced in minutes.
-                        </p>
-                      </div>
-                      <div className="app-panel-item">
-                        <p className="app-panel-item-title">
-                          Clean reporting
-                        </p>
-                        <p className="app-panel-item-copy">
-                          Built for quick resume updates.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {result && <Results result={result} />}
-            </div>
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-stone-100 relative overflow-hidden flex items-center justify-center">
+        <div className="blob w-96 h-96 bg-amber-200/50" style={{top:"-6rem",left:"-8rem"}} />
+        <div className="blob w-80 h-80 bg-teal-200/40" style={{bottom:"0",right:"-5rem"}} />
+        <div className="flex flex-col items-center gap-4 relative">
+          <div
+            className="w-12 h-12 rounded-2xl shadow-lg flex items-center justify-center"
+            style={{background:"linear-gradient(135deg,#f59e0b,#d97706)"}}
+          >
+            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
           </div>
+          <div className="flex gap-1.5">
+            {[0, 1, 2].map(i => (
+              <div
+                key={i}
+                className="w-2 h-2 rounded-full bg-amber-400"
+                style={{animation:`bounce 1s ease-in-out ${i * 0.15}s infinite`}}
+              />
+            ))}
+          </div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Loading ResumeIQ...</p>
         </div>
+        <style>{`@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}`}</style>
       </div>
-    </div>
+    );
+  }
+
+  // Simple path-based routing
+  if (path !== "/" && path !== "") {
+    return user ? <NotFound /> : <AuthPage />;
+  }
+
+  return user ? <Dashboard /> : <AuthPage />;
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppInner />
+    </AuthProvider>
   );
 }
 
-export default App;
