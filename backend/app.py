@@ -18,10 +18,10 @@ load_dotenv()
 app = Flask(__name__)
 CORS(
     app,
-    origins=[
+    resources={r"/api/*": {"origins": [
         "http://localhost:5173",
-        "https://resume-analyzer-five-steel.vercel.app/"
-    ]
+        "https://resume-analyzer-five-steel.vercel.app"
+    ]}}
 )
 
 app.config["SECRET_KEY"]                     = os.getenv("SECRET_KEY", "fallback-secret")
