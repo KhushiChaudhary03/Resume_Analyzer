@@ -20,7 +20,7 @@ CORS(
     app,
     origins=[
         "http://localhost:5173",
-        "https://your-vercel-app.vercel.app"
+        "https://resume-analyzer-five-steel.vercel.app/"
     ]
 )
 
