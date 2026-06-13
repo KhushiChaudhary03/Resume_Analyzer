@@ -258,10 +258,10 @@ def get_improvement_tips(missing_skills, role, ats_score):
 
 # ── MAIN ───────────────────────────────────────────────────
 
-def analyze_resume(resume_path: str, jd_text: str) -> dict:
+def analyze_resume(resume_path: str, jd_text: str, job_title: str) -> dict:
     resume_text = extract_text(resume_path)
 
-    role = detect_role(jd_text)
+    role = detect_role(f"{job_title} {jd_text}")
     skill_pack = SKILL_PACKS[role]
 
     matched_skills = extract_skills(resume_text, skill_pack)

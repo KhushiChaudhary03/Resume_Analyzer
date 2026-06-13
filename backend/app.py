@@ -171,7 +171,7 @@ def analyze():
         return jsonify({"error": "File size must be under 5MB"}), 400
 
     try:
-        result = analyze_resume(resume_path, jd_text)
+        result = analyze_resume(resume_path, jd_text, job_title)
     except Exception as e:
         os.remove(resume_path)
         return jsonify({"error": str(e)}), 500
